@@ -87,11 +87,10 @@ def clearAll():
 
 def memoryRead():
     old = str(entry_field.cget("text"))
-    if len(old) > 0:
-        sign = '+' if MR > 0 else ''
+    if old and old[:-len(MR)+1] == old:
+        pass
     else:
-        sign = ''
-    entry_field.config(text=old + sign + str(MR)) if MR else None
+        entry_field.config(text=old + str(MR)) if MR else None
 
 
 def memoryAdd(minus=False):
@@ -101,7 +100,7 @@ def memoryAdd(minus=False):
         if minus:
             number = '-' + number
 
-        MR += float(number) if '.' in number else int(number)
+        MR = float(number) if '.' in number else str(number)
         entry_field.config(text="")
     else:
         pass
@@ -220,59 +219,51 @@ def rootToThePowerOf():
 
 
 def equals():
-    if entry_field.cget("text") == "ERR":
-        entry_field.config(text="")
-        return
+    try:
+        if entry_field.cget("text") == "ERR":
+            entry_field.config(text="")
+            return
 
-    to_calculate = str(entry_field.cget("text"))
-    if to_calculate:
-        if to_calculate[-1] == "*" and to_calculate[-2] == "*":
-            to_calculate = to_calculate[:-2]
-            result = eval(to_calculate)
-            eq_field.config(text=to_calculate+"=")
-
-        elif to_calculate[0] == "-" and to_calculate[-1] == "-" and to_calculate[-2] == "*" and to_calculate[-3] == "*":
-            result = eval(to_calculate[1:-3])
-            eq_field.config(text=to_calculate[1:-3]+"=")
-
-        elif to_calculate[0] == "-" and to_calculate[-1] == "-" and to_calculate[-2] == "*":
-            result = eval(to_calculate[1:-2])
-            eq_field.config(text=to_calculate[1:-2]+"=")
-
-        elif to_calculate[-1] in "+-/*.":
-            if "(" in to_calculate:
-                to_calculate += ")"
-                to_calculate = to_calculate[:-2]+to_calculate[-1]
+        to_calculate = str(entry_field.cget("text"))
+        if to_calculate:
+            if to_calculate[-1] == "*" and to_calculate[-2] == "*":
+                to_calculate = to_calculate[:-2]
                 result = eval(to_calculate)
                 eq_field.config(text=to_calculate+"=")
-            
-            else:
-                result = eval(to_calculate[:-1])
-                eq_field.config(text=to_calculate[:-1]+"=")
+            elif to_calculate[0] == "-" and to_calculate[-1] == "-" and to_calculate[-2] == "*" and to_calculate[-3] == "*":
+                result = eval(to_calculate[1:-3])
+                eq_field.config(text=to_calculate[1:-3]+"=")
+            elif to_calculate[0] == "-" and to_calculate[-1] == "-" and to_calculate[-2] == "*":
+                result = eval(to_calculate[1:-2])
+                eq_field.config(text=to_calculate[1:-2]+"=")
 
-        else:   
-            try:
+            elif to_calculate[-1] in "+-/*.":
                 if "(" in to_calculate:
                     to_calculate += ")"
+                    to_calculate = to_calculate[:-2]+to_calculate[-1]
                     result = eval(to_calculate)
                     eq_field.config(text=to_calculate+"=")
                 
                 else:
-                    result = eval(to_calculate)
-                    eq_field.config(text=to_calculate+"=")
+                    result = eval(to_calculate[:-1])
+                    eq_field.config(text=to_calculate[:-1]+"=")
 
-            except Exception:
-                entry_field.config(text="ERR")
+        else:   
 
-        try:
+            if "(" in to_calculate:
+                to_calculate += ")"
+                result = eval(to_calculate)
+                eq_field.config(text=to_calculate+"=")
+            else:
+                result = eval(to_calculate)
+                eq_field.config(text=to_calculate+"=")
+
             if int(result) == float(result):
                 result = int(result)
             entry_field.config(text=result)
-
-        except Exception:
-            entry_field.config(text="ERR")
-    else:
-        pass
+        
+    except Exception:
+        entry_field.config(text="ERR")
       
 
 MC_button = Button(window, text="MC", font=("Arial", 9, "bold"), width=8, bg="black", foreground="white", command=memoryClear)
@@ -360,4 +351,3 @@ equal_to_button = Button(window, text="=", font=("Arial", 20, "bold"), width=4, 
 equal_to_button.grid(row=8, column=3)
 
 window.mainloop()
-d
