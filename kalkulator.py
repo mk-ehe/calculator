@@ -74,8 +74,6 @@ def clearEntryLabel():
             result *= i
             eq_field.config(text=str(n)+"!=")
             entry_field.config(text=result)
-        # entry_field.config(text=result)
-
     elif eq_field.cget("text"):
         entry_field.config(text=eval(eq_field.cget("text")[:-1]))
     else:
