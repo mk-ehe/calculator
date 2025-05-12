@@ -188,7 +188,7 @@ def toThePowerOf():
         pass
         return
     
-    base = entry_field.cget("text")
+    base = str(entry_field.cget("text"))
     if base:
         if (base[-1] in "*-" and base[-2] in "*(") or base[-1] == "(":
             pass
