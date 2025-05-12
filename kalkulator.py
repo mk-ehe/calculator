@@ -67,7 +67,14 @@ def appendCharacter(character: str):
 
 
 def clearEntryLabel():
-    if eq_field.cget("text"):
+    if len(eq_field.cget("text")) >= 2 and eq_field.cget("text")[-2] == "!" and entry_field.cget("text"):
+        result = 1
+        n = str(eq_field.cget("text")[:-2])
+        for i in range(2, int(n)+1):
+            result *= i
+            eq_field.config(text=str(n)+"!=")
+            entry_field.config(text=result)
+    elif eq_field.cget("text"):
         entry_field.config(text=eval(eq_field.cget("text")[:-1]))
     else:
         entry_field.config(text='')
@@ -181,7 +188,7 @@ def toThePowerOf():
         pass
         return
     
-    base = entry_field.cget("text")
+    base = str(entry_field.cget("text"))
     if base:
         if (base[-1] in "*-" and base[-2] in "*(") or base[-1] == "(":
             pass
