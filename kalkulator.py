@@ -219,20 +219,22 @@ def rootToThePowerOf():
 
 
 def equals():
-    try:
-        if entry_field.cget("text") == "ERR":
-            entry_field.config(text="")
-            return
+    if entry_field.cget("text") == "ERR":
+        entry_field.config(text="")
+        return
 
-        to_calculate = str(entry_field.cget("text"))
-        if to_calculate:
+    to_calculate = str(entry_field.cget("text"))
+    if to_calculate:
+        try:
             if to_calculate[-1] == "*" and to_calculate[-2] == "*":
                 to_calculate = to_calculate[:-2]
                 result = eval(to_calculate)
                 eq_field.config(text=to_calculate+"=")
+
             elif to_calculate[0] == "-" and to_calculate[-1] == "-" and to_calculate[-2] == "*" and to_calculate[-3] == "*":
                 result = eval(to_calculate[1:-3])
                 eq_field.config(text=to_calculate[1:-3]+"=")
+
             elif to_calculate[0] == "-" and to_calculate[-1] == "-" and to_calculate[-2] == "*":
                 result = eval(to_calculate[1:-2])
                 eq_field.config(text=to_calculate[1:-2]+"=")
@@ -247,23 +249,32 @@ def equals():
                 else:
                     result = eval(to_calculate[:-1])
                     eq_field.config(text=to_calculate[:-1]+"=")
-
+        except Exception:
+            entry_field.config(text="ERR")
+            
         else:   
+            try:
+                if "(" in to_calculate:
+                    to_calculate += ")"
+                    result = eval(to_calculate)
+                    eq_field.config(text=to_calculate+"=")
+                
+                else:
+                    result = eval(to_calculate)
+                    eq_field.config(text=to_calculate+"=")
 
-            if "(" in to_calculate:
-                to_calculate += ")"
-                result = eval(to_calculate)
-                eq_field.config(text=to_calculate+"=")
-            else:
-                result = eval(to_calculate)
-                eq_field.config(text=to_calculate+"=")
+            except Exception:
+                entry_field.config(text="ERR")
 
+        try:
             if int(result) == float(result):
                 result = int(result)
             entry_field.config(text=result)
-        
-    except Exception:
-        entry_field.config(text="ERR")
+
+        except Exception:
+            entry_field.config(text="ERR")
+    else:
+        pass
       
 
 MC_button = Button(window, text="MC", font=("Arial", 9, "bold"), width=8, bg="black", foreground="white", command=memoryClear)
