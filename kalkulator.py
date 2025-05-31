@@ -55,7 +55,6 @@ def appendCharacter(character: str):
                 entry_field.config(text=old[:-1] + character)
 
             else:
-                
                 if old and old[-1] == "-" and character == "-":
                     pass
                 elif old and old[-1] == "-" and old[-2] in "*/(" and character in "+-*/.":
@@ -65,6 +64,10 @@ def appendCharacter(character: str):
                 else:
                     entry_field.config(text=old + character)
 
+    if old == "0" and character == "0":
+        entry_field.config(text="0")
+    elif old == "0" and character != "0" and character.isdigit():
+        entry_field.config(text=character)
 
 def clearEntryLabel():
     if len(eq_field.cget("text")) >= 2 and eq_field.cget("text")[-2] == "!" and entry_field.cget("text"):
