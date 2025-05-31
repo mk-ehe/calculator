@@ -17,6 +17,7 @@ eq_field = Label(window,
 eq_field.grid(row=0, column=0, columnspan=4, pady=2, padx=4, sticky="e")
 
 entry_field = Label(window,
+                    text="0",
                     font=("Arial", 22, "bold"),
                     justify="right",
                     width=18,
