@@ -81,11 +81,11 @@ def clearEntryLabel():
     elif eq_field.cget("text"):
         entry_field.config(text=eval(eq_field.cget("text")[:-1]))
     else:
-        entry_field.config(text='')
+        entry_field.config(text="0")
 
 
 def clearAll():
-    entry_field.config(text="")
+    entry_field.config(text="0")
     eq_field.config(text="")
 
 
