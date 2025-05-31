@@ -157,11 +157,14 @@ def factorial():
             n = n[:-1]
         elif n and n[0] == "-":
             raise ValueError
-
-        for i in range(2, int(n)+1):
-            result *= i
-            eq_field.config(text=str(n)+"!=")
-            entry_field.config(text=result)
+        
+        if n in '01':
+            eq_field.config(text=str(n)+"!="+"1")
+        else:
+            for i in range(2, int(n)+1):
+                result *= i
+                eq_field.config(text=str(n)+"!=")
+                entry_field.config(text=result)
             
     except Exception:
         entry_field.config(text="ERR")
