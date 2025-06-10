@@ -199,11 +199,11 @@ def toThePowerOf():
         if (base[-1] in "*-" and base[-2] in "*(") or base[-1] == "(":
             pass
         elif base[-1] in "+-/*." and base[-2] in "+-/*.":
-            entry_field.config(text=base[:-2] + "**(")
+            entry_field.config(text=base[:-2] + "**")
         elif base[-1] in "+-/*." and base != "":
-            entry_field.config(text=base[:-1] + "**(")
+            entry_field.config(text=base[:-1] + "**")
         else:
-            entry_field.config(text=base + "**(")
+            entry_field.config(text=base + "**")
     else:
         pass
 
