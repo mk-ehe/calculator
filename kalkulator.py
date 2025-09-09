@@ -91,10 +91,13 @@ def clearAll():
 
 def memoryRead():
     old = str(entry_field.cget("text"))
-    if old and old[:-len(MR)+1] == old:
+    if MR != 0 and old and old[:-len(MR)+1] == old:
         pass
     else:
-        entry_field.config(text=old + str(MR)) if MR else None
+        if old != "0":
+            entry_field.config(text=old + str(MR)) if MR else None
+        else:
+            entry_field.config(text=str(MR)) if MR else None
 
 
 def memoryAdd(minus=False):
